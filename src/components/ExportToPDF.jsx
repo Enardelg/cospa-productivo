@@ -1,7 +1,9 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 import { Button } from '@mui/material';
-import Logo from '../assets/logoNavBarPDF.png'; // Asegúrate que la ruta sea correcta
+
+// Ruta absoluta al logo desde `public/`
+const Logo = `${import.meta.env.BASE_URL}logoNavBarPDF.png`;
 
 const ExportToPDF = ({ form }) => {
   if (!form) return null;
@@ -17,7 +19,17 @@ const ExportToPDF = ({ form }) => {
     doc.setFontSize(fontSize); // Restablece el tamaño original
   };
 
-  const generarPDF = () => {
+  const fetchImageAsBase64 = async (url) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  const generarPDF = async () => {
     try {
       const doc = new jsPDF('p', 'mm', 'a4');
       const azul = '#1565c0';
@@ -32,11 +44,11 @@ const ExportToPDF = ({ form }) => {
         opacity: 0.1
       });
 
-      // Logo más pequeño y título centrado
-      if (Logo) {
-        doc.addImage(Logo, 'PNG', 50, 5, 100, 50);
-      }
+      // ⚠️ Cargar logo como Base64 usando fetch
+      const dataURL = await fetchImageAsBase64(Logo);
 
+      // Logo y título
+      doc.addImage(dataURL, 'PNG', 50, 5, 100, 50);
       doc.setFontSize(18);
       doc.setTextColor(azul);
       ajustarTexto(doc, 'Ficha Clínica', 112, 40, 150, 'center');
@@ -107,7 +119,7 @@ const ExportToPDF = ({ form }) => {
         }
       });
 
-      // Observaciones en bloque para evitar superposición
+      // Observaciones
       y += 4;
       doc.setTextColor(azul);
       ajustarTexto(doc, 'Observaciones:', 35, y, 60);
@@ -119,7 +131,7 @@ const ExportToPDF = ({ form }) => {
         y += 5;
       });
 
-      // Firma digital compacta y sin margen superior
+      // Firma digital
       if (form.firmaDibujo) {
         y += 4;
         doc.setTextColor(azul);
@@ -152,6 +164,7 @@ const ExportToPDF = ({ form }) => {
       ajustarTexto(doc, 'CoSpa Masajes - Tu tiempo de relajación.', 105, 285, 150, 'center');
       ajustarTexto(doc, 'Documento generado y validado con firma digital.', 105, 291, 160, 'center');
 
+      // ✅ Guarda el PDF
       doc.save(`ficha_clinica_${form.nombre || 'paciente'}.pdf`);
     } catch (error) {
       console.error('Error al generar el PDF:', error);

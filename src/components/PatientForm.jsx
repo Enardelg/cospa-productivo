@@ -102,7 +102,6 @@ const PatientForm = ({ onSubmit, initialData }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) onSubmit(form);
@@ -119,24 +118,72 @@ const PatientForm = ({ onSubmit, initialData }) => {
           {/* Primera sección de datos */}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField label="Nombre y Apellido" name="nombre" fullWidth value={form.nombre} onChange={handleChange} error={!!errors.nombre} helperText={errors.nombre} />
+              <TextField
+                label="Nombre y Apellido"
+                name="nombre"
+                fullWidth
+                value={form.nombre}
+                onChange={handleChange}
+                error={!!errors.nombre}
+                helperText={errors.nombre}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField label="DNI" name="dni" fullWidth value={form.dni} onChange={handleChange} error={!!errors.dni} helperText={errors.dni} />
+              <TextField
+                label="DNI"
+                name="dni"
+                fullWidth
+                value={form.dni}
+                onChange={handleChange}
+                error={!!errors.dni}
+                helperText={errors.dni}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField label="Fecha de nacimiento" name="fechaNacimiento" type="date" fullWidth InputLabelProps={{ shrink: true }} value={form.fechaNacimiento} onChange={handleChange} error={!!errors.fechaNacimiento}
-                helperText={errors.fechaNacimiento} />
+              <TextField
+                label="Fecha de nacimiento"
+                name="fechaNacimiento"
+                type="date"
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                value={form.fechaNacimiento}
+                onChange={handleChange}
+                error={!!errors.fechaNacimiento}
+                helperText={errors.fechaNacimiento}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField label="Edad" name="edad" fullWidth value={form.edad} onChange={handleChange} error={!!errors.edad} helperText={errors.edad} />
+              <TextField
+                label="Edad"
+                name="edad"
+                fullWidth
+                value={form.edad}
+                onChange={handleChange}
+                error={!!errors.edad}
+                helperText={errors.edad}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField label="Teléfono" name="telefono" fullWidth value={form.telefono} onChange={handleChange} error={!!errors.telefono}
-                helperText={errors.telefono} />
+              <TextField
+                label="Teléfono"
+                name="telefono"
+                fullWidth
+                value={form.telefono}
+                onChange={handleChange}
+                error={!!errors.telefono}
+                helperText={errors.telefono}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField label="Email" name="email" fullWidth value={form.email} onChange={handleChange} error={!!errors.email} helperText={errors.email} />
+              <TextField
+                label="Email"
+                name="email"
+                fullWidth
+                value={form.email}
+                onChange={handleChange}
+                error={!!errors.email}
+                helperText={errors.email}
+              />
             </Grid>
 
             <Grid item xs={12}>
@@ -206,7 +253,6 @@ const PatientForm = ({ onSubmit, initialData }) => {
             </Grid>
           ))}
 
-
           {/* Observaciones */}
           <Grid container spacing={2} sx={{ mt: 4 }}>
             <Grid item xs={12}>
@@ -233,7 +279,6 @@ const PatientForm = ({ onSubmit, initialData }) => {
                     },
                   }}
                 />
-
               </Paper>
             </Grid>
           </Grid>
@@ -241,10 +286,28 @@ const PatientForm = ({ onSubmit, initialData }) => {
           {/* Firma escrita y fecha */}
           <Grid container spacing={2} sx={{ mt: 4 }}>
             <Grid item xs={12} sm={6}>
-              <TextField label="Aclaración de Firma" name="firma" fullWidth value={form.firma} onChange={handleChange} error={!!errors.firma} helperText={errors.firma} />
+              <TextField
+                label="Aclaración de Firma"
+                name="firma"
+                fullWidth
+                value={form.firma}
+                onChange={handleChange}
+                error={!!errors.firma}
+                helperText={errors.firma}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField label="Fecha" name="fecha" type="date" fullWidth InputLabelProps={{ shrink: true }} value={form.fecha} onChange={handleChange} error={!!errors.fecha} helperText={errors.fecha} />
+              <TextField
+                label="Fecha"
+                name="fecha"
+                type="date"
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+                value={form.fecha}
+                onChange={handleChange}
+                error={!!errors.fecha}
+                helperText={errors.fecha}
+              />
             </Grid>
           </Grid>
 
@@ -261,7 +324,11 @@ const PatientForm = ({ onSubmit, initialData }) => {
               />
             </Paper>
             <Box sx={{ mt: 1 }}>
-              <Button variant="outlined" onClick={() => sigCanvasRef.current.clear()} sx={{ mr: 1 }}>
+              <Button
+                variant="outlined"
+                onClick={() => sigCanvasRef.current.clear()}
+                sx={{ mr: 1 }}
+              >
                 Limpiar Firma
               </Button>
               <Button variant="contained" onClick={guardarFirmaDibujo}>
